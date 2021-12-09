@@ -1,0 +1,87 @@
+﻿<mahapps:MetroWindow x:Class="R1RiceMill.InventoryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:R1RiceMill"
+        xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls"
+        mc:Ignorable="d"
+        Title="Sales and Inventory System R1 Rice Mill"
+        TitleCharacterCasing="Normal"
+        d:Width="850"
+        WindowState="Maximized"
+        DataContext="{Binding Source={StaticResource Locator}, Path=InventoryMain}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Button x:Name="btnBack"
+                Width="{Binding ElementName=hamburgerMenu, Path=CompactPaneLength}"
+                Click="OnBackClick"
+                Style="{StaticResource MahApps.Styles.Button.Chromeless}">
+            <mahapps:FontIcon FontSize="18"
+                              Glyph="&#xE72B;" />
+        </Button>
+        <TextBlock Grid.Column="1"
+                   VerticalAlignment="Center"
+                   Margin="12,0,0,0"
+                   FontSize="20"
+                   FontWeight="SemiBold">
+            <TextBlock.Text>
+                <MultiBinding StringFormat="Welcome, {0} ({1})">
+                    <Binding Path="User.Username" />
+                    <Binding Path="User.Role"
+                             Converter="{StaticResource HumanizerConverter}" />
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+        <Button Click="OnLogout"
+                Grid.Column="2"
+                Padding="12,0">
+            <StackPanel Orientation="Horizontal">
+                <mahapps:FontIcon FontSize="14"
+                                  Glyph="&#xF3B1;" />
+                <TextBlock Text="Logout"
+                           Margin="8,0,0,0"
+                           FontSize="14"
+                           VerticalAlignment="Center" />
+            </StackPanel>
+        </Button>
+        <mahapps:HamburgerMenu x:Name="hamburgerMenu"
+                               DisplayMode="Inline"
+                               HamburgerVisibility="Collapsed"
+                               IsPaneOpen="True"
+                               ItemInvoked="OnMenuItemInvoked"
+                               Grid.Row="1"
+                               Grid.ColumnSpan="3"
+                               ItemTemplate="{StaticResource HamburgerMenuItemTemplate}"
+                               OptionsItemTemplate="{StaticResource HamburgerMenuItemTemplate}">
+            <mahapps:HamburgerMenu.ItemsSource>
+                <mahapps:HamburgerMenuItemCollection>
+                    <mahapps:HamburgerMenuGlyphItem Label="Dashboard"
+                                                    Tag="Views/Inventory/DashboardPage.xaml"
+                                                    Glyph="/Assets/Dashboard.png" />
+                    <mahapps:HamburgerMenuGlyphItem Label="Stock In"
+                                                    Tag="Views/Inventory/StockInPage.xaml"
+                                                    Glyph="/Assets/StockIn.png" />
+                    <mahapps:HamburgerMenuGlyphItem Label="Reports"
+                                                    Tag="Views/Inventory/ReportsPage.xaml"
+                                                    Glyph="/Assets/Report.png" />
+                </mahapps:HamburgerMenuItemCollection>
+            </mahapps:HamburgerMenu.ItemsSource>
+            <mahapps:HamburgerMenu.OptionsItemsSource>
+                <mahapps:HamburgerMenuItemCollection>
+                    <mahapps:HamburgerMenuGlyphItem Label="About"
+                                                    Tag="Views/AboutPage.xaml"
+                                                    Glyph="/Assets/About.png" />
+                </mahapps:HamburgerMenuItemCollection>
+            </mahapps:HamburgerMenu.OptionsItemsSource>
+        </mahapps:HamburgerMenu>
+    </Grid>
+</mahapps:MetroWindow>

@@ -1,0 +1,40 @@
+﻿<Window x:Class="R1RiceMill.Views.Cashier.VoidTransactionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:R1RiceMill.Views.Cashier"
+        xmlns:mas="http://metro.mahapps.com/winfx/xaml/shared"
+        xmlns:cashier="clr-namespace:R1RiceMill.ViewModels.Cashier"
+        d:DataContext="{d:DesignInstance Type=cashier:VoidTransactionViewModel}"
+        mc:Ignorable="d"
+        Title="Sales and Inventory System RI Rice Mill"
+        d:Width="360"
+        Width="360"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        SizeToContent="Height">
+    <StackPanel VerticalAlignment="Center"
+                Margin="20">
+        <TextBlock Text="LOGIN"
+                   Margin="0,0,0,16"
+                   FontSize="18"
+                   FontWeight="SemiBold" />
+        <TextBlock Text="Username:"
+                   Margin="0,0,0,4" />
+        <TextBox Margin="0,0,0,12"
+                 x:Name="txtUsername"
+                 Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <TextBlock Text="Password:"
+                   Margin="0,0,0,4" />
+        <PasswordBox Margin="0,0,0,20"
+                     mas:PasswordBoxBindingBehavior.Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <Button Content="Void Transaction"
+                IsDefault="True"
+                Padding="4"
+                IsEnabled="{Binding IsValid}"
+                Click="OnVoidClick" />
+    </StackPanel>
+</Window>

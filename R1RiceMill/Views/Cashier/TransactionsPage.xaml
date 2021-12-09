@@ -1,0 +1,117 @@
+﻿<Page x:Class="R1RiceMill.Views.Cashier.TransactionsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:R1RiceMill.Views.Cashier"
+      mc:Ignorable="d"
+      d:DesignHeight="650"
+      d:DesignWidth="800"
+      d:Background="White"
+      Title="Transactions"
+      DataContext="{Binding Source={StaticResource Locator}, Path=CashierTransactions}">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="320" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <TextBlock FontSize="28"
+                   FontWeight="SemiBold"
+                   Text="Transactions" />
+        <ListView Grid.Row="1"
+                  SelectionMode="Single"
+                  ItemsSource="{Binding Transactions}"
+                  SelectedItem="{Binding Transaction, Mode=TwoWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="{Binding Date, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:g}'}"
+                                   Grid.Column="1"
+                                   FontWeight="SemiBold" />
+                        <TextBlock Text="{Binding TransactionNumber}"
+                                   TextWrapping="Wrap"
+                                   Grid.Column="1"
+                                   Grid.Row="1" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Grid Grid.Column="1"
+              Grid.RowSpan="2"
+              d:Visibility="Visible"
+              Margin="20,0,0,0"
+              Visibility="{Binding Transaction, Converter={StaticResource CollapsedWhenNullConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <TextBlock Text="Transaction Details"
+                       FontWeight="SemiBold"
+                       Margin="0,0,0,8" />
+            <TextBlock Grid.Row="1"
+                       Margin="0,0,0,4">
+                    <Run Text="TX #: " />
+                    <Run Text="{Binding Transaction.TransactionNumber}" />
+            </TextBlock>
+            <TextBlock Grid.Row="2"
+                       Margin="0,0,0,4">
+                    <Run Text="INVOICE: " />
+                    <Run Text="{Binding Transaction.InvoiceCode}" />
+            </TextBlock>
+            <TextBlock Grid.Row="3"
+                       Margin="0,0,0,4">
+                    <Run Text="DATE: " />
+                    <Run Text="{Binding Transaction.Date, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:g}'}" />
+            </TextBlock>
+            <TextBlock Grid.Row="4"
+                       Margin="0,0,0,4">
+                    <Run Text="CUSTOMER: " />
+                    <Run Text="{Binding Transaction.Customer.FullName, Mode=OneWay}" />
+            </TextBlock>
+            <ItemsControl Grid.Row="5"
+                          ItemsSource="{Binding Transaction.Orders}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="8">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Margin="0,0,0,8">
+                                    <Run Text="{Binding Batch.Product.Variety}" />
+                                    <Run Text="{Binding Batch.Code, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=' ({0})'}" />
+                            </TextBlock>
+                            <TextBlock Grid.Row="1"
+                                       HorizontalAlignment="Right">
+                                    <Run Text="{Binding Quantity, Mode=OneWay}" />
+                                    <Run Text=" x " />
+                                    <Run Text="{Binding Price, Mode=OneWay, Converter={StaticResource PesoPriceConverter}}" />
+                            </TextBlock>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+        <TextBlock Text="Please select a transaction to view"
+                   Grid.Column="1"
+                   Grid.RowSpan="2"
+                   Margin="20"
+                   FontSize="20"
+                   FontWeight="SemiBold"
+                   d:Visibility="Collapsed"
+                   Visibility="{Binding Transaction, Converter={StaticResource VisibleWhenNullConverter}}" />
+    </Grid>
+</Page>

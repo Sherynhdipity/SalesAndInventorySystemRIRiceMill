@@ -1,0 +1,121 @@
+﻿<Page x:Class="R1RiceMill.Views.Cashier.CustomersPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:R1RiceMill.Views.Cashier"
+      mc:Ignorable="d" 
+      d:DesignHeight="650"
+      d:DesignWidth="800"
+      d:Background="White"
+      Title="Customers"
+      DataContext="{Binding Source={StaticResource Locator}, Path=CashierCustomers}">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="320" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <TextBlock FontSize="28"
+                   FontWeight="SemiBold"
+                   Text="Customers"
+                   Grid.ColumnSpan="2"
+                   Margin="0,0,0,8" />
+        <Button HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Width="100"
+                Background="{StaticResource MahApps.Brushes.Accent2}"
+                Command="{Binding AddCustomerCommand}">
+            <TextBlock Text="Add Customer"
+                       FontSize="12" />
+        </Button>
+        <ListView Grid.Row="1"
+                  SelectionMode="Single"
+                  ItemsSource="{Binding Customers}"
+                  SelectedItem="{Binding Customer, Mode=TwoWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock FontWeight="SemiBold"
+                                   Text="{Binding FullName}"/>
+
+                        <TextBlock Text="{Binding Address}"
+                                   Grid.Row="1" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ScrollViewer Grid.Column="1"
+                      Grid.RowSpan="2"
+                      d:Visibility="Visible"
+                      Visibility="{Binding Customer, Converter={StaticResource CollapsedWhenNullConverter}}">
+            <StackPanel Margin="20,0"
+                        Width="420"
+                        HorizontalAlignment="Left">
+                <TextBlock Text="Customer Details"
+                           FontWeight="SemiBold"
+                           FontSize="20"
+                           Margin="0,0,0,20" />
+
+                <TextBlock Text="First Name:"
+                           Margin="0,0,0,4" />
+                <TextBox Margin="0,0,0,12"
+                         Text="{Binding Customer.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                <TextBlock Text="Middle Name:"
+                           Margin="0,0,0,4" />
+                <TextBox Margin="0,0,0,12"
+                         Text="{Binding Customer.MiddleName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                <TextBlock Text="Last Name:"
+                           Margin="0,0,0,4" />
+                <TextBox Margin="0,0,0,12"
+                         Text="{Binding Customer.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                <TextBlock Text="Address:"
+                           Margin="0,0,0,4" />
+                <TextBox Margin="0,0,0,12"
+                         Text="{Binding Customer.Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                <TextBlock Text="Contact Number:"
+                           Margin="0,0,0,4" />
+                <TextBox Margin="0,0,0,12"
+                         Text="{Binding Customer.ContactNo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                <TextBlock Text="Birthday:"
+                           Margin="0,0,0,4" />
+                <DatePicker Padding="2"
+                            FontSize="16"
+                            SelectedDate="{Binding Customer.Birthday, Mode=TwoWay}"/>
+
+                <Button Command="{Binding SaveCommand}"
+                        Margin="0,8,0,0">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Assets/Save.png"
+                               Width="28"
+                               Height="28"
+                               Margin="0,0,8,0" />
+                        <TextBlock Text="Save"
+                                   VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </ScrollViewer>
+        <TextBlock Text="Please select a customer to view"
+                   Grid.Column="1"
+                   Grid.RowSpan="2"
+                   Margin="20"
+                   FontSize="20"
+                   FontWeight="SemiBold"
+                   d:Visibility="Collapsed"
+                   Visibility="{Binding Customer, Converter={StaticResource VisibleWhenNullConverter}}" />
+    </Grid>
+</Page>

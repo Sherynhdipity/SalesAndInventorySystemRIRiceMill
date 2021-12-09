@@ -1,0 +1,75 @@
+﻿<Page x:Class="R1RiceMill.Views.Cashier.DashboardPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:R1RiceMill.Views.Cashier"
+      xmlns:cashier="clr-namespace:R1RiceMill.ViewModels.Cashier"
+      xmlns:livecharts="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
+      d:DataContext="{d:DesignInstance Type=cashier:DashboardViewModel}"
+      mc:Ignorable="d"
+      d:DesignHeight="650"
+      d:DesignWidth="800"
+      d:Background="White"
+      Title="Users"
+      DataContext="{Binding Source={StaticResource Locator}, Path=CashierDashboard}">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock FontSize="28"
+                   FontWeight="SemiBold"
+                   Text="Dashboard"
+                   Grid.ColumnSpan="2"
+                   Margin="0,0,0,8" />
+        <ScrollViewer Grid.Row="1">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            Margin="0,0,0,20">
+                    <Button Padding="24, 12"
+                            Command="{Binding NewOrderCommand}"
+                            Style="{StaticResource MahApps.Styles.Button.Dialogs.Accent}">
+                        <TextBlock Text="New Order"
+                                   FontSize="20"/>
+                    </Button>
+                    <Button Padding="24, 12"
+                            Margin="24,0,0,0"
+                            Command="{Binding ReturnOrderCommand}"
+                            Style="{StaticResource MahApps.Styles.Button.Dialogs.Accent}">
+                        <TextBlock Text="Return Order"
+                                   FontSize="20" />
+                    </Button>
+                </StackPanel>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <livecharts:CartesianChart Series="{Binding Orders, Converter={StaticResource SalesSeriesConverter}}"
+                                               x:Name="chartSales"
+                                               Height="240" />
+                    <TextBlock HorizontalAlignment="Center"
+                               Text="Sales (Past 30 days)"
+                               Grid.Row="1" />
+
+                    <livecharts:CartesianChart Series="{Binding Returns, Converter={StaticResource ReturnsSeriesConverter}}"
+                                               x:Name="chartReturns"
+                                               Grid.Column="1"
+                                               Height="240" />
+                    <TextBlock HorizontalAlignment="Center"
+                               Text="Returns (Past 30 days)"
+                               Grid.Column="1"
+                               Grid.Row="1" />
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

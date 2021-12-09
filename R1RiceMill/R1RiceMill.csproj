@@ -1,0 +1,70 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\About.png" />
+    <None Remove="Assets\Active.png" />
+    <None Remove="Assets\Administrator.png" />
+    <None Remove="Assets\BackupRestore.png" />
+    <None Remove="Assets\Cashier.png" />
+    <None Remove="Assets\Dashboard.png" />
+    <None Remove="Assets\Inactive.png" />
+    <None Remove="Assets\InventoryClerk.png" />
+    <None Remove="Assets\logo.png" />
+    <None Remove="Assets\Product.png" />
+    <None Remove="Assets\Report.png" />
+    <None Remove="Assets\Save.png" />
+    <None Remove="Assets\Settings.png" />
+    <None Remove="Assets\StockIn.png" />
+    <None Remove="Assets\Transaction.png" />
+    <None Remove="Assets\Users.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Humanizer.Core" Version="2.13.14" />
+    <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-beta.90" />
+    <PackageReference Include="MahApps.Metro" Version="2.4.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.12">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+    <PackageReference Include="NittyGritty" Version="1.9.7" />
+    <PackageReference Include="PDFsharp-MigraDoc" Version="1.51.5186-beta" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\About.png" />
+    <Resource Include="Assets\Active.png" />
+    <Resource Include="Assets\Administrator.png" />
+    <Resource Include="Assets\BackupRestore.png" />
+    <Resource Include="Assets\Cashier.png" />
+    <Resource Include="Assets\Dashboard.png" />
+    <Resource Include="Assets\Inactive.png" />
+    <Resource Include="Assets\InventoryClerk.png" />
+    <Resource Include="Assets\logo.png" />
+    <Resource Include="Assets\Product.png" />
+    <Resource Include="Assets\Report.png" />
+    <Resource Include="Assets\Save.png" />
+    <Resource Include="Assets\Settings.png" />
+    <Resource Include="Assets\StockIn.png" />
+    <Resource Include="Assets\Transaction.png" />
+    <Resource Include="Assets\Users.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
